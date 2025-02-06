@@ -1,4 +1,6 @@
 import User from "../Models/user.js"
+import bcrypt from "bcryptjs"
+import genareteTokenandSetCookies from "../Utils/genarateToken.js"
 
 export const signup = async (req, res) => {
     try {
@@ -13,37 +15,75 @@ export const signup = async (req, res) => {
             return res.status(400).json({ error: "username already exists" })
         }
 
-        const boyPrifilePic=`https://avatar.iran.liara.run/public/boy?username=${username}`
-        const girlProfilePic=`https://avatar.iran.liara.run/public/girl?username=${username}`
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(password, salt)
 
-        const newUser= new User({
+        const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`
+        const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`
+
+        const newUser = new User({
             fullName,
             username,
-            password,
+            password: hashedPassword,
             gender,
-            profilepic: gender === "male" ? boyPrifilePic : girlProfilePic
+            profilepic: gender === "male" ? boyProfilePic : girlProfilePic
         })
-        await newUser.save()
+        if (newUser) {
+            genareteTokenandSetCookies(newUser._id,res)
+            await newUser.save()
 
-        res.status(201).json({
-            _id:newUser._id,
-            fullName:newUser.fullName,
-            username:newUser.username,
-            profilePic:newUser.profilepic,
-        })
+            res.status(201).json({
+                _id: newUser._id,
+                fullName: newUser.fullName,
+                username: newUser.username,
+                profilePic: newUser.profilepic,
+            })
+        } else {
+            return res.status(400).json({ error: "invalid user data" })
+        }
 
     } catch (error) {
-        console.log("error n signup controller ",error.messege)
-        res.status(500).json({error:"internal serevr error"})
+        console.log("error in signup controller ", error.messege)
+        res.status(500).json({ error: "internal serevr error" })
 
     }
 
 }
 
-export const login = (req, res) => {
-    res.send("this is login")
+export const login = async (req, res) => {
+    try {
+        const{username,password}=req.body
+        const user = await User.findOne({username})
+        if(!user){
+            return res.status(400).json({error:"invalid username"})
+        }
+        const isPassword= await bcrypt.compare(password,user?.password || "")
+        if(!isPassword){
+            return res.status(400).json({error:"invalid password"})
+        }
+
+        genareteTokenandSetCookies(user._id,res)
+        res.status(200).json({
+            _id:user._id,
+            fullName:user.fullName,
+            username:user.username,
+            profilePic:user.profilepic,
+        })
+    } catch (error) {
+        console.log("error in login controller ", error.messege)
+        res.status(500).json({ error: "internal serevr error" })
+    }
+    
 }
 
 export const logout = (req, res) => {
-    res.send("this logout page")
+    try {
+        res.cookie("jwt","",{maxAge:0})
+        res.status(200).json({messege:"Logout user successfully"})
+
+        
+    } catch (error) {
+        console.log("error in Logout controller ", error.messege)
+        res.status(500).json({ error: "internal serevr error" })
+    }
 }
