@@ -6,6 +6,7 @@ export const signup = async (req, res) => {
     try {
         const { fullName, username, password, confirmPassword, gender } = req.body
 
+
         if (password !== confirmPassword) {
             return res.status(400).json({ error: "password don't match" })
         }
@@ -26,8 +27,9 @@ export const signup = async (req, res) => {
             username,
             password: hashedPassword,
             gender,
-            profilepic: gender === "male" ? boyProfilePic : girlProfilePic
+            profilePic: gender === "male" ? boyProfilePic : girlProfilePic
         })
+        console.log(newUser,"user keri")
         if (newUser) {
             genareteTokenandSetCookies(newUser._id,res)
             await newUser.save()
@@ -36,14 +38,14 @@ export const signup = async (req, res) => {
                 _id: newUser._id,
                 fullName: newUser.fullName,
                 username: newUser.username,
-                profilePic: newUser.profilepic,
+                profilePic: newUser.profilePic,
             })
         } else {
             return res.status(400).json({ error: "invalid user data" })
         }
 
     } catch (error) {
-        console.log("error in signup controller ", error.messege)
+        console.log("error in signup controller ", error)
         res.status(500).json({ error: "internal serevr error" })
 
     }
@@ -67,7 +69,7 @@ export const login = async (req, res) => {
             _id:user._id,
             fullName:user.fullName,
             username:user.username,
-            profilePic:user.profilepic,
+            profilePic:user.profilePic,
         })
     } catch (error) {
         console.log("error in login controller ", error.messege)

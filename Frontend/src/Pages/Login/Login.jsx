@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"; 
+
 const Login = () => {
     return (
         <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
@@ -41,12 +43,15 @@ const Login = () => {
                             <input type="password" className="grow" placeholder=" Enter Password" />
                         </label>
                     </div>
-                    <a href="" className="text-sm hover:underline mt-2 inline-block hover:text-blue-400">Don't have an account ?</a>
+                    <Link to="/signup" className="text-sm hover:underline mt-2 inline-block hover:text-blue-400">
+                        Don't have an account?
+                    </Link>
+
                     <br />
                     <br />
-                    <div className=" w-full flex justify-center" >  
+                    <div className=" w-full flex justify-center" >
                         <button className="btn glass w-1/2">
-                           Login
+                            Login
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H4a1 1 0 100 2h6.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clipRule="evenodd" />
                             </svg>

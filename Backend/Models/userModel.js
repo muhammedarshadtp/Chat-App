@@ -20,7 +20,7 @@
         require:true,
         enum:["male","female"],
     },
-    profilepic:{
+    profilePic:{
         type:String,
         default:"",
     }
