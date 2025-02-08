@@ -2,6 +2,7 @@ import { useState } from "react";
 import GenderCheckBox from "./GenderCheckBox";
 import { Link } from "react-router-dom";
 import useSignup from "../../Hooks/useSignup";
+import { CircleLoader } from "react-spinners";
 
 
 const Signup = () => {
@@ -122,11 +123,12 @@ const Signup = () => {
                     <br />
                     <br />
                     <div className=" w-full flex justify-center" >
-                        <button className="btn glass w-1/2">
-                            Sign Up
-                            {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                        <button className="btn glass w-1/2" disabled={loading}>
+                            
+                            {loading ?  <CircleLoader size={30} color="#ffffff"/> : "SignUp"}
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H4a1 1 0 100 2h6.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clipRule="evenodd" />
-                            </svg> */}
+                            </svg>
                         </button>
                     </div>
 
