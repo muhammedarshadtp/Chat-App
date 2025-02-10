@@ -7,18 +7,18 @@ const messageSchema= new mongoose.Schema({
         ref:"User",
         require:true,
     },
-    recevierId:{
+    receiverId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User",
         require:true,
     },
-    messege:{
+    message:{
         type:String,
         require:true,
     }
 },
 {timestamps:true})
 
-const Messege= mongoose.model("Messege",messageSchema)
+const Message= mongoose.model("Message",messageSchema)
 
-export default Messege;
+export default Message;

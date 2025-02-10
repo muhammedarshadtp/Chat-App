@@ -9,7 +9,7 @@ const useSignup = () => {
 
     const signup = async ({ fullName, username, password, confirmPassword, gender }) => {
         const success = handleInputErrors({ fullName, username, password, confirmPassword, gender })
-        if (!success) return false;
+        if (!success) return 
         setLoading(true)
         try {
             const res = await fetch("/api/auth/signup", {
@@ -26,7 +26,7 @@ const useSignup = () => {
             setAuthUser(data)
 
         } catch (error) {
-            toast.error(error.messege)
+            toast.error(error.message)
         } finally {
             setLoading(false)
         }

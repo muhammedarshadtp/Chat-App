@@ -8,7 +8,7 @@ export const getUserFromSidebar=async(req,res)=>{
         res.status(200).json(filteredUser)
         
     } catch (error) {
-        console.log("error in getUserFromSidebar controller ", error.messege)
+        console.log("error in getUserFromSidebar controller ", error.message)
         res.status(500).json({ error: "internal serevr error" })
     }
 }

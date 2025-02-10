@@ -1,11 +1,34 @@
+import { useState } from "react";
+import useConversation from "../Zustand/useConversation";
+import useGetConversation from "../Hooks/useGetConversation";
+import toast from "react-hot-toast";
+
 
 const Searchbar = () => {
+    const [search,setSearch]=useState('')
+    const {setSelectedConversation}=useConversation()
+    const {conversation}=useGetConversation()
+
+    const handleSearch = (e)=>{
+        e.preventDefault()
+        if(!search) return
+        const foundConversation = conversation.find((c)=> c.fullName.toLowerCase().includes(search.toLowerCase()))
+        if(foundConversation){
+            setSelectedConversation(foundConversation)
+            setSearch('')
+        }else {
+            toast.error("No such user found!!")
+        }
+    }
     return (
-        <form className="flex items-center gap-2">
+        <form className="flex items-center gap-2" onSubmit={handleSearch}>
             <label className="input input-bordered flex items-center gap-2 rounded-xl">
-                <input type="text" className="grow" placeholder="Search.." />
+                <input type="text" className="grow" placeholder="Search.."
+                value={search} 
+                onChange={(e)=> setSearch(e.target.value)}
+                />
             </label>
-            <button className="btn btn-circle my-2">
+            <button type="submit" className="btn btn-circle my-2">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-8 w-10"

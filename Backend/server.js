@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser"
 import cors from "cors";
 
 import authRoutes from "./Routes/auth.Route.js"
-import messegeRoutes from "./Routes/messege.Route.js"
+import messageRoutes from "./Routes/message.Route.js"
 import userRouter from "./Routes/user.Route.js"
 
 import connectToMongoDB from "./DB/connectToMongoDB.js"
@@ -20,7 +20,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use("/api/auth/", authRoutes)
-app.use("/api/messege/", messegeRoutes)
+app.use("/api/message/", messageRoutes)
 app.use("/api/users/",userRouter)
 
 

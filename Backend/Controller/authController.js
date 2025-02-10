@@ -71,7 +71,7 @@ export const login = async (req, res) => {
             profilePic:user.profilePic,
         })
     } catch (error) {
-        console.log("error in login controller ", error.messege)
+        console.log("error in login controller ", error.message)
         res.status(500).json({ error: "internal serevr error" })
     }
     
@@ -80,11 +80,11 @@ export const login = async (req, res) => {
 export const logout = (req, res) => {
     try {
         res.cookie("jwt","",{maxAge:0})
-        res.status(200).json({messege:"Logout user successfully"})
+        res.status(200).json({message:"Logout user successfully"})
 
         
     } catch (error) {
-        console.log("error in Logout controller ", error.messege)
+        console.log("error in Logout controller ", error.message)
         res.status(500).json({ error: "internal serevr error" })
     }
 }

@@ -8,7 +8,7 @@ const useLogin =()=>{
 
     const login = async (username,password) =>{
         const success = handleInputError({username,password})
-        if(!success) return false
+        if(!success) return 
         setLoading(true)
         try {
             const res = await fetch("/api/auth/login",{
@@ -25,7 +25,7 @@ const useLogin =()=>{
             setAuthUser(data)
             
         } catch (error) {
-            toast.error(error.messege)
+            toast.error(error.message)
         }finally{
             setLoading(false)
         }
