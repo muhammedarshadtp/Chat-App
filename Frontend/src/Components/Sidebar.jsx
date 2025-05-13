@@ -2,13 +2,13 @@ import Conversations from "./Conversations";
 import Logout from "./Logout";
 import Searchbar from "./SearchBar";
 
-const Sidebar = () =>{
-    return(
-        <div className="border-r border-slate-500 p-4 flex flex-col">
-            <Searchbar/>
+const Sidebar = () => {
+    return (
+        <div className="border-r border-slate-500 p-4 flex flex-col w-full md:w-[300px]">
+            <Searchbar />
             <div className="divider px-3"></div>
-            <Conversations/>
-            <Logout/>
+            <Conversations />
+            <Logout />
         </div>
     )
 }

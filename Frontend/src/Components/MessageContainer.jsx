@@ -6,28 +6,36 @@ import { useEffect } from "react";
 import { useAuthContext } from "../Context/authContext";
 
 const MessageContainer = () => {
-    const {selectedConversation,setSelectedConversation}=useConversation()
+    const { selectedConversation, setSelectedConversation } = useConversation();
 
-    useEffect(()=>{
+    useEffect(() => {
+        return () => setSelectedConversation(null);
+    }, [setSelectedConversation]);
 
-        return ()=> setSelectedConversation(null)
-    }, [setSelectedConversation])
+    if (!selectedConversation) return <NoChatSelected />;
+
     return (
-        <div className="md:min-w-[450px] flex flex-col">
-            {!selectedConversation ? (<NoChatSelected />)
-                :
-                (<>
-                    <div className="bg-slate-700 px-4 py-2 mb-2">
-                        <span className="label-text">To:</span>
-                        <span className="text-white font-bold">{selectedConversation.fullName}</span>
-                    </div>
-                    <Messages />
-                    <MessageInputs />
-                </>
-                )}
+        <div className="flex flex-col h-full md:min-w-[450px] w-full">
+            <div className="flex items-center justify-between bg-slate-700 px-4 py-2 mb-2 md:mb-0">
+                <div className="md:hidden">
+                    <button
+                        onClick={() => setSelectedConversation(null)}
+                        className="text-white font-bold"
+                    >
+                        ← Back
+                    </button>
+                </div>
+                <div>
+                    <span className="label-text text-white mr-1">To:</span>
+                    <span className="text-white font-bold">{selectedConversation.fullName}</span>
+                </div>
+            </div>
+
+            <Messages />
+            <MessageInputs />
         </div>
-    )
-}
+    );
+};
 
 export default MessageContainer;
 

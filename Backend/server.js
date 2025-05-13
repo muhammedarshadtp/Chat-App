@@ -12,7 +12,7 @@ import { app, server } from "./Socket/socket.js";
 
 const __dirname = path.resolve()
 
-const PORT = process.env.PORT || 4000
+const PORT = process.env.PORT || 8000
 
 dotenv.config();
 
