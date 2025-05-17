@@ -16,7 +16,7 @@ const Messages = () => {
         },10)
     },[message])
     return (
-        <div className="px-4 flex-1 overflow-y-auto h-72 md:h-full">
+        <div className="px-4 flex-1 overflow-y-scroll no-scrollbar h-full">
             {!loading && Array.isArray(message) && message.length > 0
                 && message.map((msg,) => (
                     <div key={msg._id} ref={lastMessageRef} >
