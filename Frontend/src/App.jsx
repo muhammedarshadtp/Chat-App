@@ -6,6 +6,7 @@ import Signup from './Pages/SignUp/Signup'
 import { Toaster } from 'react-hot-toast'
 import { useAuthContext } from './Context/authContext'
 
+
 function App() {
 
     const {authUser}=useAuthContext();
